@@ -1,0 +1,28 @@
+name: authorization-ci-test
+
+on:
+    push:
+      branches:
+        - master
+      paths:
+        - apps/authorization-service/**
+
+    workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      # Install required deps for action
+      - name: Install Dependencies
+        run: npm install
+
+      # Finally, run our tests
+      - name: Run the tests
+        run: npm run test:cov:authorization
