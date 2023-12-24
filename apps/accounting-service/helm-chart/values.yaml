@@ -1,0 +1,96 @@
+environment:
+  projectid: 
+
+deploy:
+  name: example-deployment
+  namespace: application-namespace
+  registry: registry
+  image: image
+  tag: tag
+  port: 80
+  replicas: 1
+  #nodeselector: # if fill node selector will create
+  #InOrNotIn:
+  #nodeselectorvalue:
+  resources:
+    enabled: enable
+    requestCpu: 100m
+    requestMemory: 250Mi
+    limitCpu: 200m
+    limitMemory: 500Mi
+
+mount:
+  enabled: false
+  configmap:
+    name:
+    enabled:
+    files:
+    workdir:
+  dockerSock: false
+
+probe:
+  enabled: false
+  pathreadiness:
+  port:
+  initialDelaySeconds:
+  timeoutSeconds:
+  pathliveness:
+  port:
+  failureThreshold:
+  periodSeconds:
+  initialDelaySeconds:
+  timeoutSeconds:
+
+hpa:
+  enabled: false
+  minReplicas:
+  maxReplicas:
+  targetCPUUtilizationPercentage:
+  targetMemoryUtilizationPercentage:
+
+ingress:
+  enabled: false
+  hosts: 
+    - test.example.com
+  class: alb
+  scheme: internet-facing
+  targettype: ip
+  idle_timeout:
+    enabled: false
+    value:
+  healthcheck:
+    enabled: false
+    path:
+    port:
+
+ingress_ext:
+  enabled: false
+  class:
+  scheme:
+  targettype:
+  host:
+  path: []
+  idle_timeout:
+    enabled: false
+    value:
+  healthcheck:
+    enabled: false
+    path:
+    port:
+
+cert:
+  enabled: false
+
+svc:
+  enabled: false
+  name:
+  port:
+  nodePort:
+
+configMapRef:
+  enabled: false
+  name:
+
+secretRef:
+  enabled: false
+  name:
