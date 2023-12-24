@@ -166,10 +166,10 @@ yarn test:cov:authorization
 
 ### Extra Scripts
 
-* For linting both workspace
+* For linting all workspaces
 
 ```bash
-yarn lint:all
+yarn lint
 ```
 
 * Removing node_modules, build folders, test coverage reports, lock  files
