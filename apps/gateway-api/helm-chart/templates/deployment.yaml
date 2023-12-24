@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deploy.name }}
+  namespace: {{ .Values.deploy.namespace }}
+  labels:
+    app: {{ .Values.deploy.name }}
+spec:
+  replicas: {{ .Values.deploy.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deploy.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deploy.name }}
+    spec:
+      containers:
+      - name: {{ .Values.deploy.name }}
+        image: europe-west2-docker.pkg.dev/{{ .Values.environment.projectid }}/iacs/{{ .Values.deploy.image }}:{{ .Values.deploy.tag }}
+{{- if .Values.mount.enabled }}
+        volumeMounts:
+        - name: config-volume
+          mountPath: {{ $.Values.mount.configmap.workdir }}
+{{- end }}
+{{- if .Values.cert.enabled }}
+        - name: cert-volume
+          mountPath: {{ $.Values.cert.configmap.workdir }}
+{{- end }}
+        imagePullPolicy: Always
+{{- if or (.Values.configMapRef.enabled) (.Values.secretRef.enabled) }}     
+        envFrom:
+{{- end }}
+{{- if .Values.configMapRef.enabled }}
+        - configMapRef:
+            name: {{ .Values.configMapRef.name }}
+{{- end }}
+{{- if .Values.secretRef.enabled }}
+        - secretRef:
+            name: {{ .Values.secretRef.name }}
+{{- end }}
+{{- if .Values.deploy.resources.enabled }}
+        resources:
+          requests:
+            cpu: {{ .Values.deploy.resources.requestCpu }}
+            memory: {{ .Values.deploy.resources.requestMemory }}
+          limits:
+            cpu: {{ .Values.deploy.resources.limitCpu }}
+            memory: {{ .Values.deploy.resources.limitMemory }}
+{{- end }}
+{{- if .Values.probe.enabled }}
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.probe.pathreadiness }}
+            port: {{ .Values.probe.port }}
+          initialDelaySeconds: {{ .Values.probe.readinessinitialDelaySeconds }}
+          timeoutSeconds: {{ .Values.probe.timeoutSeconds }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.probe.pathliveness }}
+            port: {{ .Values.probe.port }} 
+          failureThreshold: {{ .Values.probe.failureThreshold }}
+          periodSeconds: {{ .Values.probe.periodSeconds }}
+          initialDelaySeconds: {{ .Values.probe.livenessinitialDelaySeconds }}
+          timeoutSeconds: {{ .Values.probe.timeoutSeconds }}
+{{- end }}
+        ports:
+        - containerPort: {{ .Values.deploy.port }} 
+      restartPolicy: Always
+{{- if .Values.mount.enabled }}
+      volumes:
+      - name: config-volume
+        configMap:
+          name: {{ .Values.mount.configmap.files }}
+{{- end }}
+{{- if .Values.cert.enabled }}
+      - name: cert-volume
+        configMap:
+          name: {{ .Values.cert.configmap.files }}
+{{- end }}
