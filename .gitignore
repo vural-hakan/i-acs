@@ -1,0 +1,11 @@
+# compiled output
+/dist
+/node_modules
+/coverage
+
+#yarn
+yarn.lock
+yarn-error.log
+
+#mac
+.DS_store

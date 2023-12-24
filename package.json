@@ -1,0 +1,23 @@
+{
+    "name": "i-acs",
+    "version": "1.0.1",
+    "private": true,
+    "workspaces": [
+      "apps/*"
+    ],
+    "scripts": {
+        "test:gateway": "yarn workspace gateway-api test",
+        "test:accounting": "yarn workspace accounting-service test",
+        "test:authorization": "yarn workspace authorization-service test",
+        "test:cov:accounting": "yarn workspace accounting-service test:cov",
+        "test:cov:authorization": "yarn workspace authorization-service test:cov",
+        "test:cov:gateway": "yarn workspace gateway-api test:cov",
+        "lint": "yarn workspace accounting-service lint && yarn workspace authorization-service lint && yarn workspace gateway-api lint",
+        "start:accounting": "yarn workspace accounting-service start",
+        "start:authorization": "yarn workspace authorization-service start",
+        "start:gateway": "yarn workspace gateway-api start",
+        "start:all": "concurrently \"yarn start:accounting\" \"yarn start:authorization\" \"yarn start:gateway\" ",
+        "clear:all": "rimraf node_modules && rimraf yarn-error.log && rimraf yarn.lock && cd apps && for d in ./*/ ; do (cd \"$d\" && pwd && rimraf node_modules && rimraf package-lock.json && rimraf dist && rimraf coverage); done",
+        "typeorm:run": "yarn workspace accounting-service typeorm:run"
+    }
+  }
