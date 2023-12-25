@@ -1,6 +1,6 @@
 # i-acs
 
-[![i-ACS gateway-api-service](https://github.com/vural-hakan/i-acs/actions/workflows/gateway-api-test-coverage.yml/badge.svg?branch=master&event=push)](https://github.com/vural-hakan/i-acs/actions/workflows/gateway-api-test-coverage.yml) [![i-ACS accounting-service](https://github.com/vural-hakan/i-acs/actions/workflows/accounting-service-test-coverage.yml/badge.svg?branch=master&event=push)](https://github.com/vural-hakan/i-acs/actions/workflows/accounting-service-test-coverage.yml) [![i-ACS authorization-service](https://github.com/vural-hakan/i-acs/actions/workflows/authorization-service-test-coverage.yml/badge.svg?branch=master&event=push)](https://github.com/vural-hakan/i-acs/actions/workflows/authorization-service-test-coverage.yml)
+[![gateway-ci-test](https://github.com/vural-hakan/i-acs/actions/workflows/gateway-api-test-coverage.yml/badge.svg)](https://github.com/vural-hakan/i-acs/actions/workflows/gateway-api-test-coverage.yml) [![accounting-ci-test](https://github.com/vural-hakan/i-acs/actions/workflows/accounting-service-test-coverage.yml/badge.svg)](https://github.com/vural-hakan/i-acs/actions/workflows/accounting-service-test-coverage.yml) [![authorization-ci-test](https://github.com/vural-hakan/i-acs/actions/workflows/authorization-service-test-coverage.yml/badge.svg)](https://github.com/vural-hakan/i-acs/actions/workflows/authorization-service-test-coverage.yml)
 
 ## API
 
